@@ -173,8 +173,15 @@ h2 {
   border-radius: 16px;
   margin-bottom: 1rem;
   border: 1px solid var(--border);
+  border-bottom: 2px solid var(--border);
   transition: all 0.2s ease;
   text-decoration: none;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.card-recommendation:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow);
 }
 
 .card-content {
