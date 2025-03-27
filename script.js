@@ -238,10 +238,27 @@ const resultsDiv = document.getElementById("results");
 const spendingChart = document.getElementById("spendingChart");
 const cardRecommendations = document.getElementById("cardRecommendations");
 
+// Load saved spending data on page load
+window.addEventListener('load', async () => {
+  try {
+    const response = await fetch('/get-spending');
+    const data = await response.json();
+    if (Object.keys(data).length > 0) {
+      Object.entries(data).forEach(([category, value]) => {
+        const input = document.getElementById(category);
+        if (input) input.value = value;
+      });
+      analyzeSpending();
+    }
+  } catch (error) {
+    console.error('Error loading spending data:', error);
+  }
+});
+
 // Add event listener to analyze button
 analyzeBtn.addEventListener("click", analyzeSpending);
 
-function analyzeSpending() {
+async function analyzeSpending() {
   // Get all spending inputs
   const spending = {
     groceries: parseFloat(document.getElementById("groceries").value) || 0,
@@ -273,6 +290,19 @@ function analyzeSpending() {
       }
     });
     return;
+  }
+
+  // Save spending data
+  try {
+    await fetch('/save-spending', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(spending),
+    });
+  } catch (error) {
+    console.error('Error saving spending data:', error);
   }
 
   // Show results section
