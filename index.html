@@ -1,105 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Credit Card Recommender</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="container">
-      <h1>Credit Card Recommender</h1>
-      <p class="subtitle">
-        Enter your annual spending in each category to get personalized credit
-        card recommendations
-      </p>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Credit Card Recommender</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="sidebar">
+				<h1>Credit Card Recommender</h1>
+				<p class="subtitle">Find your perfect credit card match</p>
 
-      <div class="spending-form">
-        <div class="form-group">
-          <label for="groceries">Groceries ($)</label>
-          <input
-            type="number"
-            id="groceries"
-            min="0"
-            placeholder="Enter annual spending"
-          />
-        </div>
+				<!-- New User Profile Section -->
+				<div class="user-profile">
+					<h2>Your Profile</h2>
+					<div class="form-group">
+						<label for="creditScore">Credit Score</label>
+						<input
+							type="range"
+							id="creditScore"
+							min="300"
+							max="850"
+							step="10"
+							value="700"
+						/>
+						<span class="range-value" id="creditScoreValue">700</span>
+					</div>
 
-        <div class="form-group">
-          <label for="travel">Travel ($)</label>
-          <input
-            type="number"
-            id="travel"
-            min="0"
-            placeholder="Enter annual spending"
-          />
-        </div>
+					<div class="form-group">
+						<label for="annualIncome">Annual Income ($)</label>
+						<input
+							type="number"
+							id="annualIncome"
+							min="0"
+							placeholder="Enter annual income"
+						/>
+					</div>
+				</div>
 
-        <div class="form-group">
-          <label for="subscriptions">Subscriptions ($)</label>
-          <input
-            type="number"
-            id="subscriptions"
-            min="0"
-            placeholder="Enter annual spending"
-          />
-        </div>
+				<!-- Spending Form -->
+				<div class="spending-form">
+					<h2>Annual Spending</h2>
+					<div class="form-group">
+						<label for="groceries">Groceries ($)</label>
+						<input
+							type="number"
+							id="groceries"
+							min="0"
+							placeholder="Annual spending"
+						/>
+					</div>
 
-        <div class="form-group">
-          <label for="gas">Gas ($)</label>
-          <input
-            type="number"
-            id="gas"
-            min="0"
-            placeholder="Enter annual spending"
-          />
-        </div>
+					<div class="form-group">
+						<label for="travel">Travel ($)</label>
+						<input
+							type="number"
+							id="travel"
+							min="0"
+							placeholder="Annual spending"
+						/>
+					</div>
 
-        <div class="form-group">
-          <label for="dining">Dining Out ($)</label>
-          <input
-            type="number"
-            id="dining"
-            min="0"
-            placeholder="Enter annual spending"
-          />
-        </div>
+					<div class="form-group">
+						<label for="dining">Dining ($)</label>
+						<input
+							type="number"
+							id="dining"
+							min="0"
+							placeholder="Annual spending"
+						/>
+					</div>
 
-        <div class="form-group">
-          <label for="amazon">Amazon Shopping ($)</label>
-          <input
-            type="number"
-            id="amazon"
-            min="0"
-            placeholder="Enter annual spending"
-          />
-        </div>
+					<div class="form-group">
+						<label for="gas">Gas ($)</label>
+						<input
+							type="number"
+							id="gas"
+							min="0"
+							placeholder="Annual spending"
+						/>
+					</div>
 
-        <div class="form-group">
-          <label for="online">Other Online Shopping ($)</label>
-          <input
-            type="number"
-            id="online"
-            min="0"
-            placeholder="Enter annual spending"
-          />
-        </div>
+					<div class="form-group">
+						<label for="amazon">Online Shopping ($)</label>
+						<input
+							type="number"
+							id="amazon"
+							min="0"
+							placeholder="Annual spending"
+						/>
+					</div>
 
-        <button id="analyzeBtn">Analyze Spending</button>
-      </div>
+					<div class="form-group">
+						<label for="other">Other ($)</label>
+						<input
+							type="number"
+							id="other"
+							min="0"
+							placeholder="Annual spending"
+						/>
+					</div>
+				</div>
 
-      <div class="results" id="results">
-        <div class="spending-summary">
-          <h2>Your Spending Summary</h2>
-          <div id="spendingChart"></div>
-        </div>
+				<!-- New Filters Section -->
+				<div class="filters-section">
+					<h2>Filters</h2>
+					<div class="filter-group">
+						<label>Card Type</label>
+						<div class="checkbox-group">
+							<label
+								><input type="checkbox" value="TRAVEL" checked /> Travel</label
+							>
+							<label
+								><input type="checkbox" value="CASHBACK" checked /> Cash
+								Back</label
+							>
+							<label
+								><input type="checkbox" value="POINTS" checked /> Points</label
+							>
+							<label><input type="checkbox" value="BUSINESS" /> Business</label>
+						</div>
+					</div>
 
-        <div class="recommendations">
-          <h2>Recommended Credit Cards</h2>
-          <div id="cardRecommendations"></div>
-        </div>
-      </div>
-    </div>
-    <script src="script.js"></script>
-  </body>
+					<div class="filter-group">
+						<label for="maxAnnualFee">Maximum Annual Fee ($)</label>
+						<input
+							type="number"
+							id="maxAnnualFee"
+							min="0"
+							step="50"
+							value="500"
+						/>
+					</div>
+
+					<div class="filter-group">
+						<label>Card Issuer</label>
+						<div class="checkbox-group">
+							<label
+								><input type="checkbox" value="CHASE" checked /> Chase</label
+							>
+							<label
+								><input type="checkbox" value="AMEX" checked /> American
+								Express</label
+							>
+							<label><input type="checkbox" value="CITI" checked /> Citi</label>
+							<label
+								><input type="checkbox" value="CAPITAL_ONE" checked /> Capital
+								One</label
+							>
+						</div>
+					</div>
+				</div>
+
+				<button id="analyzeBtn">Analyze & Recommend</button>
+			</div>
+
+			<div class="main-content">
+				<!-- Loading State -->
+				<div id="loadingState" class="loading-state hidden">
+					<div class="loader"></div>
+					<p>Analyzing your spending patterns...</p>
+				</div>
+
+				<!-- Results Section -->
+				<div class="results" id="results">
+					<div class="results-header">
+						<h2>Your Recommendations</h2>
+						<div class="view-controls">
+							<button id="gridView" class="active">
+								<i class="fas fa-th"></i> Grid
+							</button>
+							<button id="listView"><i class="fas fa-list"></i> List</button>
+						</div>
+					</div>
+
+					<div class="spending-summary">
+						<h3>Spending Summary</h3>
+						<div id="spendingChart"></div>
+					</div>
+
+					<div class="recommendations">
+						<div id="cardRecommendations" class="grid-view"></div>
+					</div>
+
+					<!-- Comparison Section -->
+					<div id="comparisonSection" class="comparison-section hidden">
+						<h3>Card Comparison</h3>
+						<div id="comparisonContent" class="comparison-content"></div>
+					</div>
+				</div>
+
+				<!-- Add this after your existing form section -->
+				<div class="analysis-container hidden" id="comprehensiveAnalysis">
+					<!-- Tabs Navigation -->
+					<div class="analysis-tabs">
+						<button class="tab-button active" data-tab="comparison">
+							Comparison
+						</button>
+						<button class="tab-button" data-tab="rewards">Rewards</button>
+						<button class="tab-button" data-tab="travel">
+							Travel Benefits
+						</button>
+						<button class="tab-button" data-tab="optimization">
+							Optimization
+						</button>
+						<button class="tab-button" data-tab="creditScore">
+							Credit Score
+						</button>
+						<button class="tab-button" data-tab="timing">
+							Application Timing
+						</button>
+					</div>
+
+					<!-- Tab Content -->
+					<div class="tab-content">
+						<!-- Comparison Tab -->
+						<div class="tab-pane active" id="comparisonTab">
+							<div class="comparison-checklist"></div>
+						</div>
+
+						<!-- Rewards Tab -->
+						<div class="tab-pane" id="rewardsTab">
+							<div class="rewards-analysis">
+								<div class="first-year-rewards"></div>
+								<div class="ongoing-rewards"></div>
+							</div>
+						</div>
+
+						<!-- Travel Benefits Tab -->
+						<div class="tab-pane" id="travelTab">
+							<div class="travel-benefits-analysis"></div>
+						</div>
+
+						<!-- Optimization Tab -->
+						<div class="tab-pane" id="optimizationTab">
+							<div class="spending-optimization">
+								<div class="optimization-summary"></div>
+								<div class="category-recommendations"></div>
+							</div>
+						</div>
+
+						<!-- Credit Score Tab -->
+						<div class="tab-pane" id="creditScoreTab">
+							<div class="credit-score-impact">
+								<div class="impact-summary"></div>
+								<div class="recovery-timeline"></div>
+								<div class="score-recommendations"></div>
+							</div>
+						</div>
+
+						<!-- Application Timing Tab -->
+						<div class="tab-pane" id="timingTab">
+							<div class="application-timeline">
+								<div class="timeline-sequence"></div>
+								<div class="timeline-warnings"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Card Detail Modal -->
+		<div id="cardModal" class="modal hidden">
+			<div class="modal-content">
+				<span class="close-modal">&times;</span>
+				<div id="cardModalContent"></div>
+			</div>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
 </html>
